@@ -1,0 +1,61 @@
+### cadastrar um usuario
+POST http://localhost:4000/auth/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "Paulo",
+    "email": "phanet@gmail.com",
+    "senha": "123456"    
+}
+
+### logar um usuario
+# @name login
+POST http://localhost:4000/auth/logar
+Content-Type: application/json
+
+{
+    "email": "phanet@gmail.com",
+    "senha": "123456"    
+}
+
+### token
+@token = {{login.response.body.token}}
+
+
+###Pegar todos as despesas
+GET http://localhost:4000/despesas
+Authorization: Bearer {{token}}
+
+
+### Criar despesas
+POST http://localhost:4000/despesas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "descricao": "Conta de água",
+    "valor": 50,
+    "pago": false,
+    "data": "2000-01-01T00:00:00.000Z"
+}
+
+### id de teste
+@id=644e5ae2-7419-4d76-bfc1-89bb8abdac47
+
+### Pegar uma despesa pelo id
+GET http://localhost:4000/despesas/{{id}}
+Authorization: Bearer {{token}}
+
+
+### Atualizar a despesa pelo id
+PATCH  http://localhost:4000/despesas/{{id}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "descricao": "Conta de água"
+}
+
+### Deletar despesas
+DELETE  http://localhost:4000/despesas/{{id}}
+Authorization: Bearer {{token}}

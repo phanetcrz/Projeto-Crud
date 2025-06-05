@@ -1,0 +1,8 @@
+{
+  "singleQuote": true,
+  "endOfLine": "LF",
+  "trailingComma": "all",
+  "rules": {
+    "prettier/prettier": "off"
+  }
+}
