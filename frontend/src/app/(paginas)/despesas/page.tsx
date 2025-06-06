@@ -11,16 +11,15 @@ export default function Despesas() {
     const router = useRouter();
 
     return <div className="flex flex-col ">
-        <div className="flex justify-end mb-4 items-center">
+        <div className="flex flex-col md:flex-row justify-end mb-4 md:items-center">
             {usuario && (
-                <div className="text-2xl text-left flex-1 m-0 p-0 font-bold">
+                <div className="text-2xl text-center md:text-left flex-1 m-2 p-0 font-bold">
                     Despesas de {usuario?.nome} ({usuario?.email})
                 </div>
-
             )}
             <Botao href="/despesas/criar"
                 texto="Adicionar Despesa"
-                className="mr-3 bg-blue-800/60 text-blue-200 hover:bg-blue-800"
+                className="md:mr-3 bg-blue-800/60 text-blue-200 hover:bg-blue-800"
             />
             <Botao
                 texto="Logout"

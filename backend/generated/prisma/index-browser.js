@@ -122,7 +122,8 @@ exports.Prisma.DespesaScalarFieldEnum = {
   descricao: 'descricao',
   data: 'data',
   valor: 'valor',
-  pago: 'pago'
+  pago: 'pago',
+  usuarioId: 'usuarioId'
 };
 
 exports.Prisma.UsuarioScalarFieldEnum = {

@@ -25,9 +25,9 @@ export default function Tabela() {
     }
 
     function acoes(id: string) {
-        return (<td className="flex justify-center py-2">
+        return (<td className="md:flex md:justify-center py-2">
             <button className={`
-            flex justify-center rounded-full m-1 p-1
+             rounded-full m-1 p-1
             text-green-600/60 hover:text-green-600
             `}>
                 <Link href={`/despesas/editar/${id}`}>
@@ -37,7 +37,7 @@ export default function Tabela() {
 
             <button
                 className={`
-            flex justify-center rounded-full m-1 p-1 cursor-pointer
+             rounded-full m-1 p-1 cursor-pointer
             text-red-600/60 hover:text-red-600
             `}
                 onClick={async () => {
@@ -51,32 +51,34 @@ export default function Tabela() {
         </td>)
     }
     return (
-        <table className="w-full overflow-hidden max-w-full">
-            <thead>
-                <tr className="text-center text-lg border-b border-neutral-500 text-gray-300">
-                    <th className="p-4">ID</th>
-                    <th className="p-4">Descrição</th>
-                    <th className="p-4">Data</th>
-                    <th className="p-4 text-right">Valor</th>
-                    <th className="p-4">Pago</th>
-                    <th className="p-4">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {despesas.map((despesa: Despesa) => {
-                    return (
-                        <tr key={despesa.id} className="text-center border-b border-neutral-500 text-gray-300">
-                            <td className="p-4">{despesa.id}</td>
-                            <td className="p-4">{despesa.descricao}</td>
-                            <td className="p-4">{new Date(despesa.data).toLocaleDateString("pt-BR")}</td>
-                            <td className="p-4 text-right">{formatarParaBRL(despesa.valor)}</td>
-                            <td className="p-4">{despesa.pago ? "Sim" : "Não"}</td>
-                            {acoes(despesa.id!)}
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
+        <div className="overflow-x-scroll md:overflow-hidden">
+            <table className="w-full  max-w-full">
+                <thead>
+                    <tr className="text-center text-lg border-b border-neutral-500 text-gray-300">
+                        <th className="p-4">ID</th>
+                        <th className="p-4">Descrição</th>
+                        <th className="p-4">Data</th>
+                        <th className="p-4 text-right">Valor</th>
+                        <th className="p-4">Pago</th>
+                        <th className="p-4">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {despesas.map((despesa: Despesa) => {
+                        return (
+                            <tr key={despesa.id} className="text-center border-b border-neutral-500 text-gray-300">
+                                <td className="p-4">{despesa.id}</td>
+                                <td className="p-4">{despesa.descricao}</td>
+                                <td className="p-4">{new Date(despesa.data).toLocaleDateString("pt-BR")}</td>
+                                <td className="p-4 text-right">{formatarParaBRL(despesa.valor)}</td>
+                                <td className="p-4">{despesa.pago ? "Sim" : "Não"}</td>
+                                {acoes(despesa.id!)}
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     )
 }
 
@@ -99,4 +101,9 @@ filter:  setDespesas(despesas!.filter((d: Despesa) => d.id !== id));
 3- Se o id da despesa atual (d.id) for diferente do id que você quer remover, então essa despesa (d) será mantida no novo array.
 4- Se o id da despesa atual (d.id) for igual ao id que você quer remover, então essa despesa (d) será descartada e não fará parte do novo array.
 
+*/
+
+/*
+overflow-x-scroll - 
+A classe overflow-x-scroll no Tailwind CSS é usada para controlar como o conteúdo que excede os limites horizontais de um elemento deve ser tratado
 */

@@ -11,6 +11,7 @@ export declare class DespesasService {
         valor: number;
         pago: boolean;
         id: string;
+        usuarioId: string;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
     findAll(): import("generated/prisma").Prisma.PrismaPromise<{
         descricao: string;
@@ -18,6 +19,7 @@ export declare class DespesasService {
         valor: number;
         pago: boolean;
         id: string;
+        usuarioId: string;
     }[]>;
     findOne(id: string): Promise<{
         descricao: string;
@@ -25,6 +27,7 @@ export declare class DespesasService {
         valor: number;
         pago: boolean;
         id: string;
+        usuarioId: string;
     }>;
     update(id: string, updateDespesaDto: UpdateDespesaDto): Promise<{
         descricao: string;
@@ -32,6 +35,7 @@ export declare class DespesasService {
         valor: number;
         pago: boolean;
         id: string;
+        usuarioId: string;
     }>;
     remove(id: string): Promise<{
         descricao: string;
@@ -39,6 +43,7 @@ export declare class DespesasService {
         valor: number;
         pago: boolean;
         id: string;
+        usuarioId: string;
     }>;
     encontraDespesa(id: string): Promise<void>;
     lancaErro404(e: any, stringAcao: string): void;

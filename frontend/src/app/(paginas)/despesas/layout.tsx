@@ -6,7 +6,7 @@ export default function Layout({ children }: any) {
             <IconeCarteira tamanho={50} />
             <span className="text-2xl font-bold">DESPESAS</span>
         </header>
-        <main className="max-w-7xl mx-auto my-5 p-5 bg-neutral-800 rounded-lg">
+        <main className="max-w-7xl w-11/12 mx-auto my-5 p-5 bg-neutral-800 rounded-lg">
             {children}
         </main>
     </div>

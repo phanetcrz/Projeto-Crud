@@ -14,15 +14,18 @@ model Despesa {
   data      DateTime @default(now())
   valor     Float
   pago      Boolean  @default(false)
+  usuarioId String
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
 
   @@map("despesas")
 }
 
 model Usuario {
-  id    String @id @default(uuid())
-  nome  String
-  email String @unique
-  senha String
+  id       String    @id @default(uuid())
+  nome     String
+  email    String    @unique
+  senha    String
+  despesas Despesa[]
 
   @@map("usuarios")
 }

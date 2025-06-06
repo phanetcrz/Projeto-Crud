@@ -955,6 +955,36 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UsuarioCountOutputType
+   */
+
+  export type UsuarioCountOutputType = {
+    despesas: number
+  }
+
+  export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    despesas?: boolean | UsuarioCountOutputTypeCountDespesasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UsuarioCountOutputType without action
+   */
+  export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsuarioCountOutputType
+     */
+    select?: UsuarioCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UsuarioCountOutputType without action
+   */
+  export type UsuarioCountOutputTypeCountDespesasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DespesaWhereInput
+  }
+
 
   /**
    * Models
@@ -986,6 +1016,7 @@ export namespace Prisma {
     data: Date | null
     valor: number | null
     pago: boolean | null
+    usuarioId: string | null
   }
 
   export type DespesaMaxAggregateOutputType = {
@@ -994,6 +1025,7 @@ export namespace Prisma {
     data: Date | null
     valor: number | null
     pago: boolean | null
+    usuarioId: string | null
   }
 
   export type DespesaCountAggregateOutputType = {
@@ -1002,6 +1034,7 @@ export namespace Prisma {
     data: number
     valor: number
     pago: number
+    usuarioId: number
     _all: number
   }
 
@@ -1020,6 +1053,7 @@ export namespace Prisma {
     data?: true
     valor?: true
     pago?: true
+    usuarioId?: true
   }
 
   export type DespesaMaxAggregateInputType = {
@@ -1028,6 +1062,7 @@ export namespace Prisma {
     data?: true
     valor?: true
     pago?: true
+    usuarioId?: true
   }
 
   export type DespesaCountAggregateInputType = {
@@ -1036,6 +1071,7 @@ export namespace Prisma {
     data?: true
     valor?: true
     pago?: true
+    usuarioId?: true
     _all?: true
   }
 
@@ -1131,6 +1167,7 @@ export namespace Prisma {
     data: Date
     valor: number
     pago: boolean
+    usuarioId: string
     _count: DespesaCountAggregateOutputType | null
     _avg: DespesaAvgAggregateOutputType | null
     _sum: DespesaSumAggregateOutputType | null
@@ -1158,6 +1195,8 @@ export namespace Prisma {
     data?: boolean
     valor?: boolean
     pago?: boolean
+    usuarioId?: boolean
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["despesa"]>
 
   export type DespesaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1166,6 +1205,8 @@ export namespace Prisma {
     data?: boolean
     valor?: boolean
     pago?: boolean
+    usuarioId?: boolean
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["despesa"]>
 
   export type DespesaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1174,6 +1215,8 @@ export namespace Prisma {
     data?: boolean
     valor?: boolean
     pago?: boolean
+    usuarioId?: boolean
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["despesa"]>
 
   export type DespesaSelectScalar = {
@@ -1182,19 +1225,32 @@ export namespace Prisma {
     data?: boolean
     valor?: boolean
     pago?: boolean
+    usuarioId?: boolean
   }
 
-  export type DespesaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "data" | "valor" | "pago", ExtArgs["result"]["despesa"]>
+  export type DespesaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "data" | "valor" | "pago" | "usuarioId", ExtArgs["result"]["despesa"]>
+  export type DespesaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+  export type DespesaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+  export type DespesaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
 
   export type $DespesaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Despesa"
-    objects: {}
+    objects: {
+      usuario: Prisma.$UsuarioPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       descricao: string
       data: Date
       valor: number
       pago: boolean
+      usuarioId: string
     }, ExtArgs["result"]["despesa"]>
     composites: {}
   }
@@ -1589,6 +1645,7 @@ export namespace Prisma {
    */
   export interface Prisma__DespesaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1623,6 +1680,7 @@ export namespace Prisma {
     readonly data: FieldRef<"Despesa", 'DateTime'>
     readonly valor: FieldRef<"Despesa", 'Float'>
     readonly pago: FieldRef<"Despesa", 'Boolean'>
+    readonly usuarioId: FieldRef<"Despesa", 'String'>
   }
     
 
@@ -1639,6 +1697,10 @@ export namespace Prisma {
      * Omit specific fields from the Despesa
      */
     omit?: DespesaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
     /**
      * Filter, which Despesa to fetch.
      */
@@ -1658,6 +1720,10 @@ export namespace Prisma {
      */
     omit?: DespesaOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
+    /**
      * Filter, which Despesa to fetch.
      */
     where: DespesaWhereUniqueInput
@@ -1675,6 +1741,10 @@ export namespace Prisma {
      * Omit specific fields from the Despesa
      */
     omit?: DespesaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
     /**
      * Filter, which Despesa to fetch.
      */
@@ -1724,6 +1794,10 @@ export namespace Prisma {
      */
     omit?: DespesaOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
+    /**
      * Filter, which Despesa to fetch.
      */
     where?: DespesaWhereInput
@@ -1772,6 +1846,10 @@ export namespace Prisma {
      */
     omit?: DespesaOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
+    /**
      * Filter, which Despesas to fetch.
      */
     where?: DespesaWhereInput
@@ -1815,6 +1893,10 @@ export namespace Prisma {
      */
     omit?: DespesaOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
+    /**
      * The data needed to create a Despesa.
      */
     data: XOR<DespesaCreateInput, DespesaUncheckedCreateInput>
@@ -1848,6 +1930,10 @@ export namespace Prisma {
      */
     data: DespesaCreateManyInput | DespesaCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -1862,6 +1948,10 @@ export namespace Prisma {
      * Omit specific fields from the Despesa
      */
     omit?: DespesaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
     /**
      * The data needed to update a Despesa.
      */
@@ -1914,6 +2004,10 @@ export namespace Prisma {
      * Limit how many Despesas to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -1928,6 +2022,10 @@ export namespace Prisma {
      * Omit specific fields from the Despesa
      */
     omit?: DespesaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
     /**
      * The filter to search for the Despesa to update in case it exists.
      */
@@ -1954,6 +2052,10 @@ export namespace Prisma {
      * Omit specific fields from the Despesa
      */
     omit?: DespesaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
     /**
      * Filter which Despesa to delete.
      */
@@ -1986,6 +2088,10 @@ export namespace Prisma {
      * Omit specific fields from the Despesa
      */
     omit?: DespesaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
   }
 
 
@@ -2145,6 +2251,8 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    despesas?: boolean | Usuario$despesasArgs<ExtArgs>
+    _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
 
   export type UsuarioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2169,10 +2277,18 @@ export namespace Prisma {
   }
 
   export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "senha", ExtArgs["result"]["usuario"]>
+  export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    despesas?: boolean | Usuario$despesasArgs<ExtArgs>
+    _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UsuarioIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuario"
-    objects: {}
+    objects: {
+      despesas: Prisma.$DespesaPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       nome: string
@@ -2572,6 +2688,7 @@ export namespace Prisma {
    */
   export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    despesas<T extends Usuario$despesasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$despesasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DespesaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2622,6 +2739,10 @@ export namespace Prisma {
      */
     omit?: UsuarioOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
      * Filter, which Usuario to fetch.
      */
     where: UsuarioWhereUniqueInput
@@ -2640,6 +2761,10 @@ export namespace Prisma {
      */
     omit?: UsuarioOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
      * Filter, which Usuario to fetch.
      */
     where: UsuarioWhereUniqueInput
@@ -2657,6 +2782,10 @@ export namespace Prisma {
      * Omit specific fields from the Usuario
      */
     omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
     /**
      * Filter, which Usuario to fetch.
      */
@@ -2706,6 +2835,10 @@ export namespace Prisma {
      */
     omit?: UsuarioOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
      * Filter, which Usuario to fetch.
      */
     where?: UsuarioWhereInput
@@ -2754,6 +2887,10 @@ export namespace Prisma {
      */
     omit?: UsuarioOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
      * Filter, which Usuarios to fetch.
      */
     where?: UsuarioWhereInput
@@ -2796,6 +2933,10 @@ export namespace Prisma {
      * Omit specific fields from the Usuario
      */
     omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
     /**
      * The data needed to create a Usuario.
      */
@@ -2844,6 +2985,10 @@ export namespace Prisma {
      * Omit specific fields from the Usuario
      */
     omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
     /**
      * The data needed to update a Usuario.
      */
@@ -2911,6 +3056,10 @@ export namespace Prisma {
      */
     omit?: UsuarioOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
      * The filter to search for the Usuario to update in case it exists.
      */
     where: UsuarioWhereUniqueInput
@@ -2937,6 +3086,10 @@ export namespace Prisma {
      */
     omit?: UsuarioOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
+    /**
      * Filter which Usuario to delete.
      */
     where: UsuarioWhereUniqueInput
@@ -2957,6 +3110,30 @@ export namespace Prisma {
   }
 
   /**
+   * Usuario.despesas
+   */
+  export type Usuario$despesasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Despesa
+     */
+    select?: DespesaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Despesa
+     */
+    omit?: DespesaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DespesaInclude<ExtArgs> | null
+    where?: DespesaWhereInput
+    orderBy?: DespesaOrderByWithRelationInput | DespesaOrderByWithRelationInput[]
+    cursor?: DespesaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DespesaScalarFieldEnum | DespesaScalarFieldEnum[]
+  }
+
+  /**
    * Usuario without action
    */
   export type UsuarioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2968,6 +3145,10 @@ export namespace Prisma {
      * Omit specific fields from the Usuario
      */
     omit?: UsuarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioInclude<ExtArgs> | null
   }
 
 
@@ -2990,7 +3171,8 @@ export namespace Prisma {
     descricao: 'descricao',
     data: 'data',
     valor: 'valor',
-    pago: 'pago'
+    pago: 'pago',
+    usuarioId: 'usuarioId'
   };
 
   export type DespesaScalarFieldEnum = (typeof DespesaScalarFieldEnum)[keyof typeof DespesaScalarFieldEnum]
@@ -3102,6 +3284,8 @@ export namespace Prisma {
     data?: DateTimeFilter<"Despesa"> | Date | string
     valor?: FloatFilter<"Despesa"> | number
     pago?: BoolFilter<"Despesa"> | boolean
+    usuarioId?: StringFilter<"Despesa"> | string
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
 
   export type DespesaOrderByWithRelationInput = {
@@ -3110,6 +3294,8 @@ export namespace Prisma {
     data?: SortOrder
     valor?: SortOrder
     pago?: SortOrder
+    usuarioId?: SortOrder
+    usuario?: UsuarioOrderByWithRelationInput
   }
 
   export type DespesaWhereUniqueInput = Prisma.AtLeast<{
@@ -3121,6 +3307,8 @@ export namespace Prisma {
     data?: DateTimeFilter<"Despesa"> | Date | string
     valor?: FloatFilter<"Despesa"> | number
     pago?: BoolFilter<"Despesa"> | boolean
+    usuarioId?: StringFilter<"Despesa"> | string
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id">
 
   export type DespesaOrderByWithAggregationInput = {
@@ -3129,6 +3317,7 @@ export namespace Prisma {
     data?: SortOrder
     valor?: SortOrder
     pago?: SortOrder
+    usuarioId?: SortOrder
     _count?: DespesaCountOrderByAggregateInput
     _avg?: DespesaAvgOrderByAggregateInput
     _max?: DespesaMaxOrderByAggregateInput
@@ -3145,6 +3334,7 @@ export namespace Prisma {
     data?: DateTimeWithAggregatesFilter<"Despesa"> | Date | string
     valor?: FloatWithAggregatesFilter<"Despesa"> | number
     pago?: BoolWithAggregatesFilter<"Despesa"> | boolean
+    usuarioId?: StringWithAggregatesFilter<"Despesa"> | string
   }
 
   export type UsuarioWhereInput = {
@@ -3155,6 +3345,7 @@ export namespace Prisma {
     nome?: StringFilter<"Usuario"> | string
     email?: StringFilter<"Usuario"> | string
     senha?: StringFilter<"Usuario"> | string
+    despesas?: DespesaListRelationFilter
   }
 
   export type UsuarioOrderByWithRelationInput = {
@@ -3162,6 +3353,7 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    despesas?: DespesaOrderByRelationAggregateInput
   }
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -3172,6 +3364,7 @@ export namespace Prisma {
     NOT?: UsuarioWhereInput | UsuarioWhereInput[]
     nome?: StringFilter<"Usuario"> | string
     senha?: StringFilter<"Usuario"> | string
+    despesas?: DespesaListRelationFilter
   }, "id" | "email">
 
   export type UsuarioOrderByWithAggregationInput = {
@@ -3200,6 +3393,7 @@ export namespace Prisma {
     data?: Date | string
     valor: number
     pago?: boolean
+    usuario: UsuarioCreateNestedOneWithoutDespesasInput
   }
 
   export type DespesaUncheckedCreateInput = {
@@ -3208,6 +3402,7 @@ export namespace Prisma {
     data?: Date | string
     valor: number
     pago?: boolean
+    usuarioId: string
   }
 
   export type DespesaUpdateInput = {
@@ -3216,6 +3411,7 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     valor?: FloatFieldUpdateOperationsInput | number
     pago?: BoolFieldUpdateOperationsInput | boolean
+    usuario?: UsuarioUpdateOneRequiredWithoutDespesasNestedInput
   }
 
   export type DespesaUncheckedUpdateInput = {
@@ -3224,6 +3420,7 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     valor?: FloatFieldUpdateOperationsInput | number
     pago?: BoolFieldUpdateOperationsInput | boolean
+    usuarioId?: StringFieldUpdateOperationsInput | string
   }
 
   export type DespesaCreateManyInput = {
@@ -3232,6 +3429,7 @@ export namespace Prisma {
     data?: Date | string
     valor: number
     pago?: boolean
+    usuarioId: string
   }
 
   export type DespesaUpdateManyMutationInput = {
@@ -3248,6 +3446,7 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     valor?: FloatFieldUpdateOperationsInput | number
     pago?: BoolFieldUpdateOperationsInput | boolean
+    usuarioId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UsuarioCreateInput = {
@@ -3255,6 +3454,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    despesas?: DespesaCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateInput = {
@@ -3262,6 +3462,7 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    despesas?: DespesaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUpdateInput = {
@@ -3269,6 +3470,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    despesas?: DespesaUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateInput = {
@@ -3276,6 +3478,7 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    despesas?: DespesaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioCreateManyInput = {
@@ -3341,12 +3544,18 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type UsuarioScalarRelationFilter = {
+    is?: UsuarioWhereInput
+    isNot?: UsuarioWhereInput
+  }
+
   export type DespesaCountOrderByAggregateInput = {
     id?: SortOrder
     descricao?: SortOrder
     data?: SortOrder
     valor?: SortOrder
     pago?: SortOrder
+    usuarioId?: SortOrder
   }
 
   export type DespesaAvgOrderByAggregateInput = {
@@ -3359,6 +3568,7 @@ export namespace Prisma {
     data?: SortOrder
     valor?: SortOrder
     pago?: SortOrder
+    usuarioId?: SortOrder
   }
 
   export type DespesaMinOrderByAggregateInput = {
@@ -3367,6 +3577,7 @@ export namespace Prisma {
     data?: SortOrder
     valor?: SortOrder
     pago?: SortOrder
+    usuarioId?: SortOrder
   }
 
   export type DespesaSumOrderByAggregateInput = {
@@ -3429,6 +3640,16 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type DespesaListRelationFilter = {
+    every?: DespesaWhereInput
+    some?: DespesaWhereInput
+    none?: DespesaWhereInput
+  }
+
+  export type DespesaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UsuarioCountOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
@@ -3450,6 +3671,12 @@ export namespace Prisma {
     senha?: SortOrder
   }
 
+  export type UsuarioCreateNestedOneWithoutDespesasInput = {
+    create?: XOR<UsuarioCreateWithoutDespesasInput, UsuarioUncheckedCreateWithoutDespesasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutDespesasInput
+    connect?: UsuarioWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -3468,6 +3695,56 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type UsuarioUpdateOneRequiredWithoutDespesasNestedInput = {
+    create?: XOR<UsuarioCreateWithoutDespesasInput, UsuarioUncheckedCreateWithoutDespesasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutDespesasInput
+    upsert?: UsuarioUpsertWithoutDespesasInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutDespesasInput, UsuarioUpdateWithoutDespesasInput>, UsuarioUncheckedUpdateWithoutDespesasInput>
+  }
+
+  export type DespesaCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<DespesaCreateWithoutUsuarioInput, DespesaUncheckedCreateWithoutUsuarioInput> | DespesaCreateWithoutUsuarioInput[] | DespesaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DespesaCreateOrConnectWithoutUsuarioInput | DespesaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: DespesaCreateManyUsuarioInputEnvelope
+    connect?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+  }
+
+  export type DespesaUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<DespesaCreateWithoutUsuarioInput, DespesaUncheckedCreateWithoutUsuarioInput> | DespesaCreateWithoutUsuarioInput[] | DespesaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DespesaCreateOrConnectWithoutUsuarioInput | DespesaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: DespesaCreateManyUsuarioInputEnvelope
+    connect?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+  }
+
+  export type DespesaUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<DespesaCreateWithoutUsuarioInput, DespesaUncheckedCreateWithoutUsuarioInput> | DespesaCreateWithoutUsuarioInput[] | DespesaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DespesaCreateOrConnectWithoutUsuarioInput | DespesaCreateOrConnectWithoutUsuarioInput[]
+    upsert?: DespesaUpsertWithWhereUniqueWithoutUsuarioInput | DespesaUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: DespesaCreateManyUsuarioInputEnvelope
+    set?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    disconnect?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    delete?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    connect?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    update?: DespesaUpdateWithWhereUniqueWithoutUsuarioInput | DespesaUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: DespesaUpdateManyWithWhereWithoutUsuarioInput | DespesaUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: DespesaScalarWhereInput | DespesaScalarWhereInput[]
+  }
+
+  export type DespesaUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<DespesaCreateWithoutUsuarioInput, DespesaUncheckedCreateWithoutUsuarioInput> | DespesaCreateWithoutUsuarioInput[] | DespesaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DespesaCreateOrConnectWithoutUsuarioInput | DespesaCreateOrConnectWithoutUsuarioInput[]
+    upsert?: DespesaUpsertWithWhereUniqueWithoutUsuarioInput | DespesaUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: DespesaCreateManyUsuarioInputEnvelope
+    set?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    disconnect?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    delete?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    connect?: DespesaWhereUniqueInput | DespesaWhereUniqueInput[]
+    update?: DespesaUpdateWithWhereUniqueWithoutUsuarioInput | DespesaUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: DespesaUpdateManyWithWhereWithoutUsuarioInput | DespesaUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: DespesaScalarWhereInput | DespesaScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3575,6 +3852,136 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type UsuarioCreateWithoutDespesasInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+  }
+
+  export type UsuarioUncheckedCreateWithoutDespesasInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+  }
+
+  export type UsuarioCreateOrConnectWithoutDespesasInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutDespesasInput, UsuarioUncheckedCreateWithoutDespesasInput>
+  }
+
+  export type UsuarioUpsertWithoutDespesasInput = {
+    update: XOR<UsuarioUpdateWithoutDespesasInput, UsuarioUncheckedUpdateWithoutDespesasInput>
+    create: XOR<UsuarioCreateWithoutDespesasInput, UsuarioUncheckedCreateWithoutDespesasInput>
+    where?: UsuarioWhereInput
+  }
+
+  export type UsuarioUpdateToOneWithWhereWithoutDespesasInput = {
+    where?: UsuarioWhereInput
+    data: XOR<UsuarioUpdateWithoutDespesasInput, UsuarioUncheckedUpdateWithoutDespesasInput>
+  }
+
+  export type UsuarioUpdateWithoutDespesasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UsuarioUncheckedUpdateWithoutDespesasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DespesaCreateWithoutUsuarioInput = {
+    id?: string
+    descricao: string
+    data?: Date | string
+    valor: number
+    pago?: boolean
+  }
+
+  export type DespesaUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    descricao: string
+    data?: Date | string
+    valor: number
+    pago?: boolean
+  }
+
+  export type DespesaCreateOrConnectWithoutUsuarioInput = {
+    where: DespesaWhereUniqueInput
+    create: XOR<DespesaCreateWithoutUsuarioInput, DespesaUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type DespesaCreateManyUsuarioInputEnvelope = {
+    data: DespesaCreateManyUsuarioInput | DespesaCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DespesaUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: DespesaWhereUniqueInput
+    update: XOR<DespesaUpdateWithoutUsuarioInput, DespesaUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<DespesaCreateWithoutUsuarioInput, DespesaUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type DespesaUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: DespesaWhereUniqueInput
+    data: XOR<DespesaUpdateWithoutUsuarioInput, DespesaUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type DespesaUpdateManyWithWhereWithoutUsuarioInput = {
+    where: DespesaScalarWhereInput
+    data: XOR<DespesaUpdateManyMutationInput, DespesaUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type DespesaScalarWhereInput = {
+    AND?: DespesaScalarWhereInput | DespesaScalarWhereInput[]
+    OR?: DespesaScalarWhereInput[]
+    NOT?: DespesaScalarWhereInput | DespesaScalarWhereInput[]
+    id?: StringFilter<"Despesa"> | string
+    descricao?: StringFilter<"Despesa"> | string
+    data?: DateTimeFilter<"Despesa"> | Date | string
+    valor?: FloatFilter<"Despesa"> | number
+    pago?: BoolFilter<"Despesa"> | boolean
+    usuarioId?: StringFilter<"Despesa"> | string
+  }
+
+  export type DespesaCreateManyUsuarioInput = {
+    id?: string
+    descricao: string
+    data?: Date | string
+    valor: number
+    pago?: boolean
+  }
+
+  export type DespesaUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: FloatFieldUpdateOperationsInput | number
+    pago?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DespesaUncheckedUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: FloatFieldUpdateOperationsInput | number
+    pago?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DespesaUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: FloatFieldUpdateOperationsInput | number
+    pago?: BoolFieldUpdateOperationsInput | boolean
   }
 
 
