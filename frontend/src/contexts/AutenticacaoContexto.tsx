@@ -52,7 +52,6 @@ export function AutenticacaoProvider({ children }: any) {
         return usuario && !!usuario.token;
     }
 
-
     return (
         <ContextoAutenticacao.Provider
             value={{

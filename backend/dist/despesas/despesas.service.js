@@ -26,10 +26,21 @@ let DespesasService = class DespesasService {
         }
         return novaDespesa;
     }
-    create(createDespesaDto) {
+    async create(createDespesaDto, email) {
         try {
+            const usuario = await this.prisma.usuario.findUnique({
+                where: { email: email }
+            });
+            if (!usuario) {
+                throw new common_1.NotFoundException("Usuário não foi encontrado");
+            }
             return this.prisma.despesa.create({
-                data: this.formatarDespesa(createDespesaDto)
+                data: {
+                    ...this.formatarDespesa(createDespesaDto),
+                    usuario: {
+                        connect: { id: usuario.id }
+                    }
+                }
             });
         }
         catch (e) {

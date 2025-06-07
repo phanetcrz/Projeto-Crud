@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException, NotFoundException } from '@ne
 import { CreateDespesaDto } from './dto/create-despesa.dto';
 import { UpdateDespesaDto } from './dto/update-despesa.dto';
 import { PrismaProvider } from 'src/db/prisma.provider';
+import { connect } from 'http2';
 
 @Injectable()
 export class DespesasService {
@@ -23,10 +24,23 @@ export class DespesasService {
     return novaDespesa
   }
 
-  create(createDespesaDto: CreateDespesaDto) {
+  async create(createDespesaDto: CreateDespesaDto, email: string) {
     try {
+      const usuario = await this.prisma.usuario.findUnique({    //--Pega o email vindo da requisição e faz o filtro por email na tabela do usuário
+        where: { email: email }
+      })
+
+      if (!usuario) {
+        throw new NotFoundException("Usuário não foi encontrado")
+      }
+
       return this.prisma.despesa.create({
-        data: this.formatarDespesa(createDespesaDto)
+        data: {
+          ...this.formatarDespesa(createDespesaDto),
+          usuario: {                                 //--adicionando o ID na criação da despesa
+            connect: { id: usuario.id }
+          }
+        }
       });
     } catch (e: any) {
       throw new InternalServerErrorException("Não foi possível criar a despesa. Verifique os dados e tente novamente")

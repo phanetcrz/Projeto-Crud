@@ -23,6 +23,8 @@ export class JwtGuard implements CanActivate {
       if (tokenDecodificado.exp < Math.round(Date.now() / 1000)) {  //verifica se o token expirou
         lancarErro()
       }
+
+      requisicao.emailUsuario = tokenDecodificado.email;
     } catch (e: any) {
       lancarErro()
     }

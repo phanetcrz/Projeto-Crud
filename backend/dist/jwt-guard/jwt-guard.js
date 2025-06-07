@@ -28,6 +28,7 @@ let JwtGuard = class JwtGuard {
             if (tokenDecodificado.exp < Math.round(Date.now() / 1000)) {
                 lancarErro();
             }
+            requisicao.emailUsuario = tokenDecodificado.email;
         }
         catch (e) {
             lancarErro();

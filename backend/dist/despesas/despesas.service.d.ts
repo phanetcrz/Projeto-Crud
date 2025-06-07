@@ -5,14 +5,14 @@ export declare class DespesasService {
     private readonly prisma;
     constructor(prisma: PrismaProvider);
     formatarDespesa(despesa: any): any;
-    create(createDespesaDto: CreateDespesaDto): import("generated/prisma").Prisma.Prisma__DespesaClient<{
+    create(createDespesaDto: CreateDespesaDto, email: string): Promise<{
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
         id: string;
         usuarioId: string;
-    }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
+    }>;
     findAll(): import("generated/prisma").Prisma.PrismaPromise<{
         descricao: string;
         data: Date;

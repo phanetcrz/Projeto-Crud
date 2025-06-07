@@ -1,5 +1,5 @@
 // eslint-disable-next-line prettier/prettier
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { DespesasService } from './despesas.service';
 import { CreateDespesaDto } from './dto/create-despesa.dto';
 import { UpdateDespesaDto } from './dto/update-despesa.dto';
@@ -13,8 +13,8 @@ export class DespesasController {
   constructor(private readonly despesasService: DespesasService) { }
 
   @Post()
-  create(@Body() createDespesaDto: CreateDespesaDto) {
-    return this.despesasService.create(createDespesaDto);
+  create(@Body() createDespesaDto: CreateDespesaDto, @Request() req: any) {
+    return this.despesasService.create(createDespesaDto, req.emailUsuario);
   }
 
   @Get()
@@ -37,3 +37,14 @@ export class DespesasController {
     return this.despesasService.remove(id);
   }
 }
+
+/*
+Pegar a requisição completa
+@Request() req: any
+
+ex:
+
+create(@Body() createDespesaDto: CreateDespesaDto, @Request() req: any) {
+
+
+*/

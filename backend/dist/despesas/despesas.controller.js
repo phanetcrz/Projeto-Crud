@@ -22,8 +22,8 @@ let DespesasController = class DespesasController {
     constructor(despesasService) {
         this.despesasService = despesasService;
     }
-    create(createDespesaDto) {
-        return this.despesasService.create(createDespesaDto);
+    create(createDespesaDto, req) {
+        return this.despesasService.create(createDespesaDto, req.emailUsuario);
     }
     findAll() {
         return this.despesasService.findAll();
@@ -42,8 +42,9 @@ exports.DespesasController = DespesasController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_despesa_dto_1.CreateDespesaDto]),
+    __metadata("design:paramtypes", [create_despesa_dto_1.CreateDespesaDto, Object]),
     __metadata("design:returntype", void 0)
 ], DespesasController.prototype, "create", null);
 __decorate([
