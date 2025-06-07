@@ -5,43 +5,43 @@ export declare class DespesasController {
     private readonly despesasService;
     constructor(despesasService: DespesasService);
     create(createDespesaDto: CreateDespesaDto, email: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
         usuarioId: string;
     }>;
     findAll(): import("generated/prisma").Prisma.PrismaPromise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
         usuarioId: string;
     }[]>;
     findOne(id: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
         usuarioId: string;
     }>;
     update(id: string, updateDespesaDto: UpdateDespesaDto): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
         usuarioId: string;
     }>;
     remove(id: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
         usuarioId: string;
     }>;
 }

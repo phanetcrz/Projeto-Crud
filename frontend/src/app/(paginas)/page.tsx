@@ -13,14 +13,14 @@ export default function Home() {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [registrar, setRegistrar] = useState(false)
-  const { usuario, login, cadastro } = useAutenticacao();
+  const { temUsuarioLogado, login, cadastro } = useAutenticacao();
   const router = useRouter();
 
   useEffect(() => {
-    if (usuario?.token) {
+    if (temUsuarioLogado()) {
       router.push('/despesas')
     }
-  }, [usuario])
+  }, [])
 
   return (
     <div className="h-screen flex items-center justify-center">

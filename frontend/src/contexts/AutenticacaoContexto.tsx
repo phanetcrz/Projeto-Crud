@@ -24,6 +24,11 @@ export function AutenticacaoProvider({ children }: any) {
         setUsuario(usuario);
     }, [])
 
+    function temUsuarioLogado() {
+        const usuario = CookieSessao.pegar();
+        return usuario && !!usuario.token //--!! converte o valor para boolean, se tem valor é true, caso contrário falso
+    }
+
     async function login(email: string, senha: string) {   //**funções assincronas retornam promisses */
         const usuario = await logar(email, senha);
 
@@ -45,11 +50,6 @@ export function AutenticacaoProvider({ children }: any) {
     function logout() {
         CookieSessao.limpar()
         setUsuario(null)
-    }
-
-    function temUsuarioLogado() {
-        const usuario = CookieSessao.pegar();
-        return usuario && !!usuario.token;
     }
 
     return (
