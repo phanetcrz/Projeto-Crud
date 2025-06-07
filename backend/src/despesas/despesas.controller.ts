@@ -4,6 +4,7 @@ import { DespesasService } from './despesas.service';
 import { CreateDespesaDto } from './dto/create-despesa.dto';
 import { UpdateDespesaDto } from './dto/update-despesa.dto';
 import { JwtGuard } from 'src/jwt-guard/jwt-guard';
+import { EmailUsuario } from 'src/email-usuario/email-usuario.decorator';
 
 
 @Controller('despesas')
@@ -13,8 +14,8 @@ export class DespesasController {
   constructor(private readonly despesasService: DespesasService) { }
 
   @Post()
-  create(@Body() createDespesaDto: CreateDespesaDto, @Request() req: any) {
-    return this.despesasService.create(createDespesaDto, req.emailUsuario);
+  create(@Body() createDespesaDto: CreateDespesaDto, @EmailUsuario() email: string) {   //**@EmailUsuario - decorator personalizado */
+    return this.despesasService.create(createDespesaDto, email);
   }
 
   @Get()

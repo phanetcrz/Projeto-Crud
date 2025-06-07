@@ -18,12 +18,13 @@ const despesas_service_1 = require("./despesas.service");
 const create_despesa_dto_1 = require("./dto/create-despesa.dto");
 const update_despesa_dto_1 = require("./dto/update-despesa.dto");
 const jwt_guard_1 = require("../jwt-guard/jwt-guard");
+const email_usuario_decorator_1 = require("../email-usuario/email-usuario.decorator");
 let DespesasController = class DespesasController {
     constructor(despesasService) {
         this.despesasService = despesasService;
     }
-    create(createDespesaDto, req) {
-        return this.despesasService.create(createDespesaDto, req.emailUsuario);
+    create(createDespesaDto, email) {
+        return this.despesasService.create(createDespesaDto, email);
     }
     findAll() {
         return this.despesasService.findAll();
@@ -42,9 +43,9 @@ exports.DespesasController = DespesasController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Request)()),
+    __param(1, (0, email_usuario_decorator_1.EmailUsuario)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_despesa_dto_1.CreateDespesaDto, Object]),
+    __metadata("design:paramtypes", [create_despesa_dto_1.CreateDespesaDto, String]),
     __metadata("design:returntype", void 0)
 ], DespesasController.prototype, "create", null);
 __decorate([
