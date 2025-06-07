@@ -15,14 +15,14 @@ export default function Layout({ children }: any) {
 //--validação p verificar se o usuário está logado, para não deixar navegar pelas páginas e causar erros
 //-- que é a proteção de rotas
 function ValidaUsuarioLogado({ children }: any) {
-    const { usuario } = useAutenticacao();
+    const { temUsuarioLogado } = useAutenticacao();
     const router = useRouter();
 
     useEffect(() => {
-        if (!usuario) {
-            router.push("/")
+        if (!temUsuarioLogado()) {
+            router.push("/");
         }
-    }, [])
+    }, []);
 
     return children;
 }

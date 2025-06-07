@@ -10,6 +10,7 @@ interface ContextoProps {
     logout: () => void
     login: (email: string, senha: string) => Promise<boolean>  //**Usa-se "Promise" pq funções assincronas retornam promisses */
     cadastro: (nome: string, email: string, senha: string) => any
+    temUsuarioLogado: () => boolean
 }
 
 export const ContextoAutenticacao = createContext<ContextoProps | undefined>(undefined)
@@ -46,13 +47,20 @@ export function AutenticacaoProvider({ children }: any) {
         setUsuario(null)
     }
 
+    function temUsuarioLogado() {
+        const usuario = CookieSessao.pegar();
+        return usuario && !!usuario.token;
+    }
+
+
     return (
         <ContextoAutenticacao.Provider
             value={{
                 usuario,
                 logout,
                 login,
-                cadastro
+                cadastro,
+                temUsuarioLogado
             }}>
             {children}
         </ContextoAutenticacao.Provider>
