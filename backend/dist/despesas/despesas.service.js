@@ -15,6 +15,9 @@ const prisma_provider_1 = require("../db/prisma.provider");
 let DespesasService = class DespesasService {
     constructor(prisma) {
         this.prisma = prisma;
+        this.camposParaSelecionar = {
+            id: true, descricao: true, valor: true, data: true, pago: true
+        };
     }
     formatarDespesa(despesa) {
         const novaDespesa = { ...despesa };
@@ -35,7 +38,7 @@ let DespesasService = class DespesasService {
                     usuario: {
                         connect: { id: idUsuario }
                     }
-                }
+                }, select: this.camposParaSelecionar
             });
         }
         catch (e) {
@@ -46,7 +49,8 @@ let DespesasService = class DespesasService {
         try {
             const usuarioId = await this.pegaIdPorEmail(email);
             return this.prisma.despesa.findMany({
-                where: { usuarioId }
+                where: { usuarioId },
+                select: this.camposParaSelecionar
             });
         }
         catch (e) {
@@ -55,7 +59,14 @@ let DespesasService = class DespesasService {
     }
     async findOne(id, email) {
         try {
-            const despesa = await this.encontraDespesa(id, email);
+            const usuarioId = await this.pegaIdPorEmail(email);
+            const despesa = await this.prisma.despesa.findUnique({
+                where: { id, usuarioId },
+                select: this.camposParaSelecionar
+            });
+            if (!despesa) {
+                throw new common_1.NotFoundException("Despesa não encontrada.");
+            }
             return despesa;
         }
         catch (e) {
@@ -64,10 +75,11 @@ let DespesasService = class DespesasService {
     }
     async update(id, updateDespesaDto, email) {
         try {
-            const despesa = await this.encontraDespesa(id, email);
+            const criterioSelecao = await this.encontraDespesa(id, email);
             return this.prisma.despesa.update({
-                where: { id: despesa.id, usuarioId: despesa.usuarioId },
-                data: this.formatarDespesa(updateDespesaDto)
+                where: criterioSelecao,
+                data: this.formatarDespesa(updateDespesaDto),
+                select: this.camposParaSelecionar
             });
         }
         catch (e) {
@@ -76,9 +88,10 @@ let DespesasService = class DespesasService {
     }
     async remove(id, email) {
         try {
-            const despesa = await this.encontraDespesa(id, email);
+            const criterioSelecao = await this.encontraDespesa(id, email);
             return this.prisma.despesa.delete({
-                where: { id: despesa.id, usuarioId: despesa.usuarioId }
+                where: criterioSelecao,
+                select: this.camposParaSelecionar
             });
         }
         catch (e) {
@@ -91,7 +104,7 @@ let DespesasService = class DespesasService {
         if (!despesa) {
             throw new common_1.NotFoundException("Despesa não encontrada.");
         }
-        return despesa;
+        return { id: despesa.id, usuarioId };
     }
     lancaErro404(e, stringAcao) {
         if (e?.status && e.status === 404) {

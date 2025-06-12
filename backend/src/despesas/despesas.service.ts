@@ -6,6 +6,10 @@ import { PrismaProvider } from 'src/db/prisma.provider';
 @Injectable()
 export class DespesasService {
 
+  camposParaSelecionar = {
+    id: true, descricao: true, valor: true, data: true, pago: true
+  }
+
   constructor(private readonly prisma: PrismaProvider) { }
 
   formatarDespesa(despesa: any) {
@@ -33,7 +37,7 @@ export class DespesasService {
           usuario: {                                 //--adicionando o ID na criação da despesa
             connect: { id: idUsuario }
           }
-        }
+        }, select: this.camposParaSelecionar
       });
     } catch (e: any) {
       throw new InternalServerErrorException("Não foi possível criar a despesa. Verifique os dados e tente novamente")
@@ -44,7 +48,8 @@ export class DespesasService {
     try {
       const usuarioId = await this.pegaIdPorEmail(email)
       return this.prisma.despesa.findMany({
-        where: { usuarioId }
+        where: { usuarioId },
+        select: this.camposParaSelecionar
       });
     } catch (e: any) {
       throw new InternalServerErrorException("Não foi possível obter as despesas. Tente novamente mais tarde.")
@@ -53,8 +58,18 @@ export class DespesasService {
 
   async findOne(id: string, email: string) {
     try {
-      const despesa = await this.encontraDespesa(id, email)
+      const usuarioId = await this.pegaIdPorEmail(email)
 
+      const despesa = await this.prisma.despesa.findUnique(
+        {
+          where: { id, usuarioId },
+          select: this.camposParaSelecionar
+        }
+      )
+
+      if (!despesa) {
+        throw new NotFoundException("Despesa não encontrada.")
+      }
       return despesa
 
     } catch (e: any) {
@@ -64,11 +79,12 @@ export class DespesasService {
 
   async update(id: string, updateDespesaDto: UpdateDespesaDto, email: string) {
     try {
-      const despesa = await this.encontraDespesa(id, email)
+      const criterioSelecao = await this.encontraDespesa(id, email)
 
       return this.prisma.despesa.update({
-        where: { id: despesa.id, usuarioId: despesa.usuarioId },
-        data: this.formatarDespesa(updateDespesaDto)
+        where: criterioSelecao,
+        data: this.formatarDespesa(updateDespesaDto),
+        select: this.camposParaSelecionar
       });
     } catch (e: any) {
       this.lancaErro404(e, "atualizar a despesa")
@@ -77,10 +93,11 @@ export class DespesasService {
 
   async remove(id: string, email: string) {
     try {
-      const despesa = await this.encontraDespesa(id, email)
+      const criterioSelecao = await this.encontraDespesa(id, email)
 
       return this.prisma.despesa.delete({
-        where: { id: despesa.id, usuarioId: despesa.usuarioId }
+        where: criterioSelecao,
+        select: this.camposParaSelecionar
       });
     } catch (e: any) {
       this.lancaErro404(e, "remover a despesa")
@@ -96,7 +113,7 @@ export class DespesasService {
     if (!despesa) {
       throw new NotFoundException("Despesa não encontrada.")
     }
-    return despesa
+    return { id: despesa.id, usuarioId }
   }
 
   lancaErro404(e: any, stringAcao: string) {
