@@ -26,17 +26,17 @@ let DespesasController = class DespesasController {
     create(createDespesaDto, email) {
         return this.despesasService.create(createDespesaDto, email);
     }
-    findAll() {
-        return this.despesasService.findAll();
+    findAll(email) {
+        return this.despesasService.findAll(email);
     }
-    findOne(id) {
-        return this.despesasService.findOne(id);
+    findOne(id, email) {
+        return this.despesasService.findOne(id, email);
     }
-    update(id, updateDespesaDto) {
-        return this.despesasService.update(id, updateDespesaDto);
+    update(id, updateDespesaDto, email) {
+        return this.despesasService.update(id, updateDespesaDto, email);
     }
-    remove(id) {
-        return this.despesasService.remove(id);
+    remove(id, email) {
+        return this.despesasService.remove(id, email);
     }
 };
 exports.DespesasController = DespesasController;
@@ -50,30 +50,34 @@ __decorate([
 ], DespesasController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, email_usuario_decorator_1.EmailUsuario)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], DespesasController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, email_usuario_decorator_1.EmailUsuario)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], DespesasController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, email_usuario_decorator_1.EmailUsuario)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_despesa_dto_1.UpdateDespesaDto]),
+    __metadata("design:paramtypes", [String, update_despesa_dto_1.UpdateDespesaDto, String]),
     __metadata("design:returntype", void 0)
 ], DespesasController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, email_usuario_decorator_1.EmailUsuario)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], DespesasController.prototype, "remove", null);
 exports.DespesasController = DespesasController = __decorate([

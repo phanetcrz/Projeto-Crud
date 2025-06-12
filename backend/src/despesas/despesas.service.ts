@@ -2,7 +2,6 @@ import { Injectable, InternalServerErrorException, NotFoundException } from '@ne
 import { CreateDespesaDto } from './dto/create-despesa.dto';
 import { UpdateDespesaDto } from './dto/update-despesa.dto';
 import { PrismaProvider } from 'src/db/prisma.provider';
-import { connect } from 'http2';
 
 @Injectable()
 export class DespesasService {
@@ -26,19 +25,13 @@ export class DespesasService {
 
   async create(createDespesaDto: CreateDespesaDto, email: string) {
     try {
-      const usuario = await this.prisma.usuario.findUnique({    //--Pega o email vindo da requisição e faz o filtro por email na tabela do usuário
-        where: { email: email }
-      })
-
-      if (!usuario) {
-        throw new NotFoundException("Usuário não foi encontrado")
-      }
+      const idUsuario = await this.pegaIdPorEmail(email)
 
       return this.prisma.despesa.create({
         data: {
           ...this.formatarDespesa(createDespesaDto),
           usuario: {                                 //--adicionando o ID na criação da despesa
-            connect: { id: usuario.id }
+            connect: { id: idUsuario }
           }
         }
       });
@@ -47,34 +40,34 @@ export class DespesasService {
     }
   }
 
-  findAll() {
+  async findAll(email: string) {
     try {
-      return this.prisma.despesa.findMany();
+      const usuarioId = await this.pegaIdPorEmail(email)
+      return this.prisma.despesa.findMany({
+        where: { usuarioId }
+      });
     } catch (e: any) {
       throw new InternalServerErrorException("Não foi possível obter as despesas. Tente novamente mais tarde.")
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, email: string) {
     try {
-      await this.encontraDespesa(id)
-
-      const despesa = await this.prisma.despesa.findUnique(
-        { where: { id } }
-      )
+      const despesa = await this.encontraDespesa(id, email)
 
       return despesa
+
     } catch (e: any) {
       this.lancaErro404(e, "obter a despesa")
     }
   }
 
-  async update(id: string, updateDespesaDto: UpdateDespesaDto) {
+  async update(id: string, updateDespesaDto: UpdateDespesaDto, email: string) {
     try {
-      await this.encontraDespesa(id)
+      const despesa = await this.encontraDespesa(id, email)
 
       return this.prisma.despesa.update({
-        where: { id },
+        where: { id: despesa.id, usuarioId: despesa.usuarioId },
         data: this.formatarDespesa(updateDespesaDto)
       });
     } catch (e: any) {
@@ -82,26 +75,28 @@ export class DespesasService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string, email: string) {
     try {
-      await this.encontraDespesa(id)
+      const despesa = await this.encontraDespesa(id, email)
 
       return this.prisma.despesa.delete({
-        where: { id }
+        where: { id: despesa.id, usuarioId: despesa.usuarioId }
       });
     } catch (e: any) {
       this.lancaErro404(e, "remover a despesa")
     }
   }
 
-  async encontraDespesa(id: string) {
-    const despesa = await this.prisma.despesa.findUnique({
-      where: { id }
-    });
+  async encontraDespesa(id: string, email: string) {
+    const usuarioId = await this.pegaIdPorEmail(email)
+    const despesa = await this.prisma.despesa.findUnique(
+      { where: { id, usuarioId } }
+    )
 
     if (!despesa) {
       throw new NotFoundException("Despesa não encontrada.")
     }
+    return despesa
   }
 
   lancaErro404(e: any, stringAcao: string) {
@@ -109,5 +104,16 @@ export class DespesasService {
       throw e
     }
     throw new InternalServerErrorException(`Não foi possível ${stringAcao}. Tente novamente mais tarde.`)
+  }
+
+  async pegaIdPorEmail(email: string) {
+    const usuario = await this.prisma.usuario.findUnique({    //--Pega o email vindo da requisição e faz o filtro por email na tabela do usuário
+      where: { email: email }
+    })
+
+    if (!usuario) {
+      throw new NotFoundException("Usuário não foi encontrado")
+    }
+    return usuario.id
   }
 }

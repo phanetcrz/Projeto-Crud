@@ -3,8 +3,8 @@ POST http://localhost:4000/auth/cadastrar
 Content-Type: application/json
 
 {
-    "nome": "Paulo",
-    "email": "phanet@gmail.com",
+    "nome": "Emilia",
+    "email": "emilia@gmail.com",
     "senha": "123456"    
 }
 
@@ -14,7 +14,7 @@ POST http://localhost:4000/auth/logar
 Content-Type: application/json
 
 {
-    "email": "phanet@gmail.com",
+    "email": "emilia@gmail.com",
     "senha": "123456"    
 }
 
@@ -40,7 +40,7 @@ Content-Type: application/json
 }
 
 ### id de teste
-@id=6e386f2a-8eee-4f13-a73d-413c4eac9ab5
+@id=4ae08e88-12c3-4d77-ab64-7659e3a2e988
 
 ### Pegar uma despesa pelo id
 GET http://localhost:4000/despesas/{{id}}

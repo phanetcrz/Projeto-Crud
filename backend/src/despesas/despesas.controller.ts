@@ -19,23 +19,23 @@ export class DespesasController {
   }
 
   @Get()
-  findAll() {
-    return this.despesasService.findAll();
+  findAll(@EmailUsuario() email: string) {
+    return this.despesasService.findAll(email);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.despesasService.findOne(id);
+  findOne(@Param('id') id: string, @EmailUsuario() email: string) {
+    return this.despesasService.findOne(id, email);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDespesaDto: UpdateDespesaDto) {
-    return this.despesasService.update(id, updateDespesaDto);
+  update(@Param('id') id: string, @Body() updateDespesaDto: UpdateDespesaDto, @EmailUsuario() email: string) {
+    return this.despesasService.update(id, updateDespesaDto, email);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.despesasService.remove(id);
+  remove(@Param('id') id: string, @EmailUsuario() email: string) {
+    return this.despesasService.remove(id, email);
   }
 }
 

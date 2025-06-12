@@ -13,7 +13,7 @@ export declare class DespesasService {
         id: string;
         usuarioId: string;
     }>;
-    findAll(): import("generated/prisma").Prisma.PrismaPromise<{
+    findAll(email: string): Promise<{
         descricao: string;
         data: Date;
         valor: number;
@@ -21,7 +21,7 @@ export declare class DespesasService {
         id: string;
         usuarioId: string;
     }[]>;
-    findOne(id: string): Promise<{
+    findOne(id: string, email: string): Promise<{
         descricao: string;
         data: Date;
         valor: number;
@@ -29,7 +29,7 @@ export declare class DespesasService {
         id: string;
         usuarioId: string;
     }>;
-    update(id: string, updateDespesaDto: UpdateDespesaDto): Promise<{
+    update(id: string, updateDespesaDto: UpdateDespesaDto, email: string): Promise<{
         descricao: string;
         data: Date;
         valor: number;
@@ -37,7 +37,7 @@ export declare class DespesasService {
         id: string;
         usuarioId: string;
     }>;
-    remove(id: string): Promise<{
+    remove(id: string, email: string): Promise<{
         descricao: string;
         data: Date;
         valor: number;
@@ -45,6 +45,14 @@ export declare class DespesasService {
         id: string;
         usuarioId: string;
     }>;
-    encontraDespesa(id: string): Promise<void>;
+    encontraDespesa(id: string, email: string): Promise<{
+        descricao: string;
+        data: Date;
+        valor: number;
+        pago: boolean;
+        id: string;
+        usuarioId: string;
+    }>;
     lancaErro404(e: any, stringAcao: string): void;
+    pegaIdPorEmail(email: string): Promise<string>;
 }

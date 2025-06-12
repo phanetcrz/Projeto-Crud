@@ -1,11 +1,11 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 export const EmailUsuario = createParamDecorator(
-    (_: any, ctx: ExecutionContext) => {
-        const requisicao = ctx.switchToHttp().getRequest()
-        return requisicao.emailUsuario
+  (_: any, ctx: ExecutionContext) => {
+    const requisicao = ctx.switchToHttp().getRequest() //pega os dados na requisição
+    return requisicao.emailUsuario                     //retorna o usuário da requisição
 
-    }
+  }
 )
 
 /* do controller
