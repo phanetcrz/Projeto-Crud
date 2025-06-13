@@ -5,7 +5,7 @@ import { LogarUsuarioDTO } from './dto/logar-usuario.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('/cadastrar')
   create(@Body() criarUsuarioDTO: CriarUsuarioDTO) {

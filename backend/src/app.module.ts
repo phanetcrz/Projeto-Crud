@@ -7,14 +7,18 @@ import { PrismaProvider } from './db/prisma.provider';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 
-
 @Module({
-  imports: [DespesasModule, DbModule, AuthModule, JwtModule,
+  imports: [
+    DespesasModule,
+    DbModule,
+    AuthModule,
+    JwtModule,
     JwtModule.register({
       global: true,
       secret: 'meu-segredo',
-      signOptions: { expiresIn: '1d' }
-    })],
+      signOptions: { expiresIn: '1d' },
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaProvider],
 })

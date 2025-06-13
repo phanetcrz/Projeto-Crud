@@ -7,4 +7,4 @@ import { PrismaProvider } from 'src/db/prisma.provider';
   controllers: [DespesasController],
   providers: [DespesasService, PrismaProvider],
 })
-export class DespesasModule { }
+export class DespesasModule {}

@@ -7,4 +7,4 @@ import { PrismaProvider } from 'src/db/prisma.provider';
   controllers: [AuthController],
   providers: [AuthService, PrismaProvider],
 })
-export class AuthModule { }
+export class AuthModule {}
