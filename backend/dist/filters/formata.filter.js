@@ -11,20 +11,22 @@ const common_1 = require("@nestjs/common");
 let FormataFilter = class FormataFilter {
     catch(exception, host) {
         const resposta = host.switchToHttp().getResponse();
-        console.log(resposta);
         const ehHttpException = exception instanceof common_1.HttpException;
-        const status = ehHttpException ? exception.getStatus() : common_1.HttpStatus.INTERNAL_SERVER_ERROR;
+        const status = ehHttpException
+            ? exception.getStatus()
+            : common_1.HttpStatus.INTERNAL_SERVER_ERROR;
         const respostaOriginal = ehHttpException && exception.getResponse();
-        console.log('erro: ' + respostaOriginal);
-        const mensagem = respostaOriginal ? respostaOriginal.message : "Houve um problema desconhecido.";
+        const mensagem = respostaOriginal
+            ? respostaOriginal.message
+            : 'Houve um problema desconhecido.';
         const mensagemEhArray = Array.isArray(mensagem);
         const tipo = exception?.constructor?.name;
         resposta.status(status).json({
             erro: {
-                mensagem: mensagemEhArray ? mensagem.join(" ") : mensagem,
+                mensagem: mensagemEhArray ? mensagem.join(' ') : mensagem,
                 status,
-                tipo
-            }
+                tipo,
+            },
         });
     }
 };

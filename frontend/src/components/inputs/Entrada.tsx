@@ -3,8 +3,8 @@ import { cn } from "@/utils/cn"
 interface EntradaProps {
     tipo?: "text" | "number" | "date" | "password" | "email"
     texto: string
-    valor: any
-    setValor?: any
+    valor: string | number | undefined
+    setValor?: (v: string) => void | ((v: number) => void)     //-- (v: string) => void = função que recebe um valor que é uma string que retorna void
     nome: string
     className?: string
     somenteLeitura?: boolean

@@ -16,19 +16,19 @@ class CriarUsuarioDTO {
 exports.CriarUsuarioDTO = CriarUsuarioDTO;
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)({ message: "O nome é obrigatório." }),
-    (0, class_validator_1.MinLength)(3, { message: "O nome precisa ter no mínimo 3 caracteres." }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'O nome é obrigatório.' }),
+    (0, class_validator_1.MinLength)(3, { message: 'O nome precisa ter no mínimo 3 caracteres.' }),
     __metadata("design:type", String)
 ], CriarUsuarioDTO.prototype, "nome", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: "O email é obrigatório." }),
-    (0, class_validator_1.IsEmail)({}, { message: "O email deve ser válido" }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'O email é obrigatório.' }),
+    (0, class_validator_1.IsEmail)({}, { message: 'O email deve ser válido' }),
     __metadata("design:type", String)
 ], CriarUsuarioDTO.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)({ message: "A senha é obrigatório." }),
-    (0, class_validator_1.MinLength)(6, { message: "A senha precisa ter no mínimo 6 caracteres." }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'A senha é obrigatório.' }),
+    (0, class_validator_1.MinLength)(6, { message: 'A senha precisa ter no mínimo 6 caracteres.' }),
     __metadata("design:type", String)
 ], CriarUsuarioDTO.prototype, "senha", void 0);
 //# sourceMappingURL=criar-usuario.dto.js.map

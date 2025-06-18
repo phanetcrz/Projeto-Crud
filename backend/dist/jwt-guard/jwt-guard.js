@@ -21,7 +21,7 @@ let JwtGuard = class JwtGuard {
         const requisicao = context.switchToHttp().getRequest();
         const token = requisicao.headers.authorization?.split(' ')[1];
         function lancarErro() {
-            throw new common_2.UnauthorizedException("Parece que você não está logado. Faça login novamente");
+            throw new common_2.UnauthorizedException('Parece que você não está logado. Faça login novamente');
         }
         try {
             const tokenDecodificado = this.jwtService.decode(token);
@@ -30,7 +30,7 @@ let JwtGuard = class JwtGuard {
             }
             requisicao.emailUsuario = tokenDecodificado.email;
         }
-        catch (e) {
+        catch {
             lancarErro();
         }
         return true;

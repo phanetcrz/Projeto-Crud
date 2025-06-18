@@ -10,7 +10,7 @@ import Loader from "./template/Loader";
 
 export default function Tabela() {
     const { obterTodos, excluir } = useAPI();
-    const [despesas, setDespesas] = useState<null | any[]>(null)
+    const [despesas, setDespesas] = useState<null | Despesa[]>(null)
 
     useEffect(() => {
         obterTodos().then((dados) => {

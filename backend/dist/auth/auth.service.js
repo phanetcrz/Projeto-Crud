@@ -22,53 +22,55 @@ let AuthService = class AuthService {
     async criar(criarUsuarioDTO) {
         const rodadas = 4;
         const senhaHash = await (0, bcrypt_1.hash)(criarUsuarioDTO.senha, rodadas);
-        const usuarioJaCadastrado = await this.prisma.usuario.findUnique({ where: { email: criarUsuarioDTO.email } });
+        const usuarioJaCadastrado = await this.prisma.usuario.findUnique({
+            where: { email: criarUsuarioDTO.email },
+        });
         if (usuarioJaCadastrado) {
-            throw new common_1.ConflictException("Usuário já cadastrado");
+            throw new common_1.ConflictException('Usuário já cadastrado');
         }
         try {
             return this.prisma.usuario.create({
                 data: {
                     ...criarUsuarioDTO,
-                    senha: senhaHash
+                    senha: senhaHash,
                 },
                 select: {
                     nome: true,
-                    email: true
-                }
+                    email: true,
+                },
             });
         }
-        catch (e) {
-            throw new common_1.InternalServerErrorException("Houve um problema ao cadastrar o usuário. Tente novamente mais tarde.");
+        catch {
+            throw new common_1.InternalServerErrorException('Houve um problema ao cadastrar o usuário. Tente novamente mais tarde.');
         }
     }
     async logar(logarUsuarioDTO) {
         try {
             const { email, senha } = logarUsuarioDTO;
             const usuario = await this.prisma.usuario.findUnique({
-                where: { email }
+                where: { email },
             });
             if (!usuario) {
-                throw new common_1.UnauthorizedException("Usuário não encontrado");
+                throw new common_1.UnauthorizedException('Usuário não encontrado');
             }
             const senhaCorreta = await (0, bcrypt_1.compare)(senha, usuario.senha);
             if (!senhaCorreta) {
-                throw new common_1.UnauthorizedException("Usuário ou senha incorreta");
+                throw new common_1.UnauthorizedException('Usuário ou senha incorreta');
             }
             const payload = {
-                email: usuario.email
+                email: usuario.email,
             };
             return {
                 nome: usuario.nome,
                 email: usuario.email,
-                token: this.jwtService.sign(payload)
+                token: this.jwtService.sign(payload),
             };
         }
         catch (e) {
             if (e instanceof common_1.UnauthorizedException) {
                 throw e;
             }
-            throw new common_1.InternalServerErrorException("Houve um problema ao logar o seu usuário. Tente novamente mais tarde.");
+            throw new common_1.InternalServerErrorException('Houve um problema ao logar o seu usuário. Tente novamente mais tarde.');
         }
     }
 };

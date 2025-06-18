@@ -19,6 +19,7 @@ export function useAPI() {
     async function pegaErro<T>(promise: Promise<T>) {
         try {
             return await promise
+            /* eslint-disable-next-line */
         } catch (e: any) {
             adicionarMensagem(e.mensagem)
         }

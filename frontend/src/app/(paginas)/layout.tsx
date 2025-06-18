@@ -2,9 +2,10 @@
 import { AutenticacaoProvider } from "@/contexts/AutenticacaoContexto";
 import { useAutenticacao } from "@/hooks/useAutenticacao";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
-export default function Layout({ children }: any) {
+//export default function Layout({ children }: any) {
+export default function Layout({ children }: { children: ReactNode }) {
     return (
         <AutenticacaoProvider>
             <ValidaUsuarioLogado>{children}</ValidaUsuarioLogado>
@@ -14,7 +15,8 @@ export default function Layout({ children }: any) {
 
 //--validação p verificar se o usuário está logado, para não deixar navegar pelas páginas e causar erros
 //-- que é a proteção de rotas
-function ValidaUsuarioLogado({ children }: any) {
+//function ValidaUsuarioLogado({ children }: any) {
+function ValidaUsuarioLogado({ children }: { children: ReactNode }) {
     const { temUsuarioLogado } = useAutenticacao();
     const router = useRouter();
 

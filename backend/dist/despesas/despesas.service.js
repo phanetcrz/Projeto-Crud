@@ -16,11 +16,17 @@ let DespesasService = class DespesasService {
     constructor(prisma) {
         this.prisma = prisma;
         this.camposParaSelecionar = {
-            id: true, descricao: true, valor: true, data: true, pago: true
+            id: true,
+            descricao: true,
+            valor: true,
+            data: true,
+            pago: true,
         };
     }
     formatarDespesa(despesa) {
-        const novaDespesa = { ...despesa };
+        const novaDespesa = {
+            ...despesa,
+        };
         if (despesa.data) {
             novaDespesa.data = `${new Date(despesa.data).toISOString().slice(0, -1)}-03:00`;
         }
@@ -36,13 +42,14 @@ let DespesasService = class DespesasService {
                 data: {
                     ...this.formatarDespesa(createDespesaDto),
                     usuario: {
-                        connect: { id: idUsuario }
-                    }
-                }, select: this.camposParaSelecionar
+                        connect: { id: idUsuario },
+                    },
+                },
+                select: this.camposParaSelecionar,
             });
         }
-        catch (e) {
-            throw new common_1.InternalServerErrorException("Não foi possível criar a despesa. Verifique os dados e tente novamente");
+        catch {
+            throw new common_1.InternalServerErrorException('Não foi possível criar a despesa. Verifique os dados e tente novamente');
         }
     }
     async findAll(email) {
@@ -50,11 +57,11 @@ let DespesasService = class DespesasService {
             const usuarioId = await this.pegaIdPorEmail(email);
             return this.prisma.despesa.findMany({
                 where: { usuarioId },
-                select: this.camposParaSelecionar
+                select: this.camposParaSelecionar,
             });
         }
-        catch (e) {
-            throw new common_1.InternalServerErrorException("Não foi possível obter as despesas. Tente novamente mais tarde.");
+        catch {
+            throw new common_1.InternalServerErrorException('Não foi possível obter as despesas. Tente novamente mais tarde.');
         }
     }
     async findOne(id, email) {
@@ -62,15 +69,15 @@ let DespesasService = class DespesasService {
             const usuarioId = await this.pegaIdPorEmail(email);
             const despesa = await this.prisma.despesa.findUnique({
                 where: { id, usuarioId },
-                select: this.camposParaSelecionar
+                select: this.camposParaSelecionar,
             });
             if (!despesa) {
-                throw new common_1.NotFoundException("Despesa não encontrada.");
+                throw new common_1.NotFoundException('Despesa não encontrada.');
             }
             return despesa;
         }
         catch (e) {
-            this.lancaErro404(e, "obter a despesa");
+            this.lancaErro404(e, 'obter a despesa');
         }
     }
     async update(id, updateDespesaDto, email) {
@@ -79,11 +86,11 @@ let DespesasService = class DespesasService {
             return this.prisma.despesa.update({
                 where: criterioSelecao,
                 data: this.formatarDespesa(updateDespesaDto),
-                select: this.camposParaSelecionar
+                select: this.camposParaSelecionar,
             });
         }
         catch (e) {
-            this.lancaErro404(e, "atualizar a despesa");
+            this.lancaErro404(e, 'atualizar a despesa');
         }
     }
     async remove(id, email) {
@@ -91,33 +98,35 @@ let DespesasService = class DespesasService {
             const criterioSelecao = await this.encontraDespesa(id, email);
             return this.prisma.despesa.delete({
                 where: criterioSelecao,
-                select: this.camposParaSelecionar
+                select: this.camposParaSelecionar,
             });
         }
         catch (e) {
-            this.lancaErro404(e, "remover a despesa");
+            this.lancaErro404(e, 'remover a despesa');
         }
     }
     async encontraDespesa(id, email) {
         const usuarioId = await this.pegaIdPorEmail(email);
-        const despesa = await this.prisma.despesa.findUnique({ where: { id, usuarioId } });
+        const despesa = await this.prisma.despesa.findUnique({
+            where: { id, usuarioId },
+        });
         if (!despesa) {
-            throw new common_1.NotFoundException("Despesa não encontrada.");
+            throw new common_1.NotFoundException('Despesa não encontrada.');
         }
         return { id: despesa.id, usuarioId };
     }
     lancaErro404(e, stringAcao) {
-        if (e?.status && e.status === 404) {
+        if (e instanceof common_1.HttpException && e.getStatus() === 404) {
             throw e;
         }
         throw new common_1.InternalServerErrorException(`Não foi possível ${stringAcao}. Tente novamente mais tarde.`);
     }
     async pegaIdPorEmail(email) {
         const usuario = await this.prisma.usuario.findUnique({
-            where: { email: email }
+            where: { email: email },
         });
         if (!usuario) {
-            throw new common_1.NotFoundException("Usuário não foi encontrado");
+            throw new common_1.NotFoundException('Usuário não foi encontrado');
         }
         return usuario.id;
     }

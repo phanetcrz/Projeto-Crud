@@ -1,6 +1,8 @@
 import { IconeCarteira } from "@/components/Icones";
+import { ReactNode } from "react";
 
-export default function Layout({ children }: any) {
+// export default function Layout({ children }: any) { antes da eliminação do any
+export default function Layout({ children }: { children: ReactNode }) {
     return (<div>
         <header className="flex justify-center items-center gap-4 py-10 text-gray-200">
             <IconeCarteira tamanho={50} />

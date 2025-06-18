@@ -1,6 +1,6 @@
 export declare class CreateDespesaDto {
     descricao: string;
-    data: Date;
+    data: string;
     valor: number;
     pago: boolean;
 }

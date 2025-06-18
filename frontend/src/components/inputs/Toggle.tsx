@@ -3,7 +3,7 @@ import { cn } from "@/utils/cn";
 interface ToggleProps {
     texto: string;
     valor: boolean;
-    setValor: any
+    setValor: (v: boolean) => void
 }
 
 export default function Toggle({ texto, valor, setValor }: ToggleProps) {

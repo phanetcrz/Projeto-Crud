@@ -6,14 +6,18 @@ const common_1 = require("@nestjs/common");
 const formata_filter_1 = require("./filters/formata.filter");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
-        cors: true
+        cors: true,
     });
     app.useGlobalFilters(new formata_filter_1.FormataFilter());
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
-        transform: true
+        transform: true,
     }));
     await app.listen(process.env.PORT ?? 4000);
 }
-bootstrap();
+bootstrap().catch((e) => {
+    console.error('Deu erro');
+    console.error(e.message);
+    process.exit(1);
+});
 //# sourceMappingURL=main.js.map

@@ -1,8 +1,12 @@
+/* eslint-disable-next-line */
+type Body = Record<string, any>
+type Headers = Record<string, string> //-- tipos genérivos aonde recebo chaves strings e valores strings
+
 type RequisicaoProps = {
     metodo: "GET" | "POST" | "PATCH" | "DELETE",
     url: string
-    body?: any
-    headers?: any
+    body?: /*antes era any*/ Body
+    headers?: /*antes era any*/ Headers
 }
 
 class ErroDoBackend extends Error {
@@ -34,7 +38,7 @@ export class Requisicao {
         }
     }
 
-    static async get(url: string, headers?: any) {
+    static async get(url: string, headers?: Headers) {
         return Requisicao.generica({
             metodo: "GET",
             url,
@@ -42,7 +46,7 @@ export class Requisicao {
         })
     }
 
-    static async post(url: string, body: any, headers?: any) {
+    static async post(url: string, body: Body, headers?: Headers) {
         return Requisicao.generica({
             metodo: "POST",
             url,
@@ -54,7 +58,7 @@ export class Requisicao {
         })
     }
 
-    static async patch(url: string, body: any, headers?: any) {
+    static async patch(url: string, body: Body, headers?: Headers) {
         return Requisicao.generica({
             metodo: "PATCH",
             url,
@@ -66,7 +70,7 @@ export class Requisicao {
         })
     }
 
-    static async delete(url: string, headers?: any) {
+    static async delete(url: string, headers?: Headers) {
         return Requisicao.generica({
             metodo: "DELETE",
             url,

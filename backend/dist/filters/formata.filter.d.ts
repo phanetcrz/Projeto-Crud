@@ -1,4 +1,4 @@
 import { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
-export declare class FormataFilter<T> implements ExceptionFilter {
+export declare class FormataFilter implements ExceptionFilter {
     catch(exception: unknown, host: ArgumentsHost): void;
 }

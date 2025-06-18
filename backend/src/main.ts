@@ -20,7 +20,11 @@ async function bootstrap() {
   );
   await app.listen(process.env.PORT ?? 4000);
 }
-bootstrap();
+bootstrap().catch((e: Error) => {
+  console.error('Deu erro');
+  console.error(e.message);
+  process.exit(1);
+});
 
 /* whitelist: true
 remove as propriedades não declarada no json, ex:

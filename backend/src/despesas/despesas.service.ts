@@ -25,7 +25,7 @@ export class DespesasService {
     pago: true,
   };
 
-  constructor(private readonly prisma: PrismaProvider) { }
+  constructor(private readonly prisma: PrismaProvider) {}
 
   formatarDespesa(despesa: CreateDespesaDto | UpdateDespesaDto): DespesaInput {
     const novaDespesa = {
@@ -139,7 +139,8 @@ export class DespesasService {
     return { id: despesa.id, usuarioId };
   }
 
-  lancaErro404(e: unknown, stringAcao: string) {   //--unknown é um tipo desconhecido
+  lancaErro404(e: unknown, stringAcao: string) {
+    //--unknown é um tipo desconhecido
     if (e instanceof HttpException && e.getStatus() === 404) {
       throw e;
     }

@@ -2,20 +2,23 @@
 
 import Usuario from "@/model/Usuario"
 import { CookieSessao } from "@/utils/CookieSessao"
-import { createContext, useEffect, useState } from "react"
+import { createContext, ReactNode, useEffect, useState } from "react"
 import { useAPI } from "@/hooks/useAPI"
 
 interface ContextoProps {
     usuario: Usuario | null;
     logout: () => void
     login: (email: string, senha: string) => Promise<boolean>  //**Usa-se "Promise" pq funções assincronas retornam promisses */
-    cadastro: (nome: string, email: string, senha: string) => any
+    cadastro: (nome: string, email: string, senha: string) => Promise<boolean>
     temUsuarioLogado: () => boolean
 }
 
 export const ContextoAutenticacao = createContext<ContextoProps | undefined>(undefined)
 
-export function AutenticacaoProvider({ children }: any) {
+//rt function AutenticacaoProvider({ children }: any) {
+export function AutenticacaoProvider({ children }: { children: ReactNode }) {
+
+
     const [usuario, setUsuario] = useState<Usuario | null>(null)
     const { logar, cadastrar } = useAPI()
 
@@ -45,6 +48,7 @@ export function AutenticacaoProvider({ children }: any) {
         if (dados.email) {
             return login(email, senha)
         }
+        return false
     }
 
     function logout() {

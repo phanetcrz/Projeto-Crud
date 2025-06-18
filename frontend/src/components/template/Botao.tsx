@@ -4,7 +4,7 @@ import Link from "next/link";
 interface BotaoProps {
     texto: string;
     className?: string;
-    onClick?: any;
+    onClick?: () => void;
     href?: string;
 }
 

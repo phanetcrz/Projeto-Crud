@@ -5,38 +5,38 @@ export declare class DespesasController {
     private readonly despesasService;
     constructor(despesasService: DespesasService);
     create(createDespesaDto: CreateDespesaDto, email: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
     }>;
     findAll(email: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
     }[]>;
     findOne(id: string, email: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
     }>;
     update(id: string, updateDespesaDto: UpdateDespesaDto, email: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
     }>;
     remove(id: string, email: string): Promise<{
-        id: string;
         descricao: string;
         data: Date;
         valor: number;
         pago: boolean;
+        id: string;
     }>;
 }

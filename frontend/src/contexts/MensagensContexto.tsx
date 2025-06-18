@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 //--props das funcionalidades do contextp
 interface ContextoMensagensProps {
@@ -13,7 +13,8 @@ interface ContextoMensagensProps {
 export const ContextoMensagens = createContext<ContextoMensagensProps | undefined>(undefined)
 
 //-- implementação do provider
-export function MensagensProvider({ children }: any) {
+//export function MensagensProvider({ children }: any) {
+export function MensagensProvider({ children }: { children: ReactNode }) {
     const [mensagens, setMensagens] = useState<string[]>([])
 
     function adicionarMensagem(mensagem: string) {

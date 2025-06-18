@@ -20,12 +20,17 @@ let AppModule = class AppModule {
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [despesas_module_1.DespesasModule, db_module_1.DbModule, auth_module_1.AuthModule, jwt_1.JwtModule,
+        imports: [
+            despesas_module_1.DespesasModule,
+            db_module_1.DbModule,
+            auth_module_1.AuthModule,
+            jwt_1.JwtModule,
             jwt_1.JwtModule.register({
                 global: true,
                 secret: 'meu-segredo',
-                signOptions: { expiresIn: '1d' }
-            })],
+                signOptions: { expiresIn: '1d' },
+            }),
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, prisma_provider_1.PrismaProvider],
     })

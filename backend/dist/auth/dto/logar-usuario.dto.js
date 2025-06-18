@@ -15,14 +15,14 @@ class LogarUsuarioDTO {
 }
 exports.LogarUsuarioDTO = LogarUsuarioDTO;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: "O email é obrigatório." }),
-    (0, class_validator_1.IsEmail)({}, { message: "O email deve ser válido." }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'O email é obrigatório.' }),
+    (0, class_validator_1.IsEmail)({}, { message: 'O email deve ser válido.' }),
     __metadata("design:type", String)
 ], LogarUsuarioDTO.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)({ message: "A senha é obrigatório." }),
-    (0, class_validator_1.MinLength)(6, { message: "A senha precisa ter no mínimo 6 caracteres." }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'A senha é obrigatório.' }),
+    (0, class_validator_1.MinLength)(6, { message: 'A senha precisa ter no mínimo 6 caracteres.' }),
     __metadata("design:type", String)
 ], LogarUsuarioDTO.prototype, "senha", void 0);
 //# sourceMappingURL=logar-usuario.dto.js.map

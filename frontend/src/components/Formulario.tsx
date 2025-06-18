@@ -43,8 +43,8 @@ export default function Formulario({ id }: FormularioProps) {
     if (despesa === null) return <div>Houve um problema</div>
 
     //formato da data  yyyy-mm-dd
-    function handleChange(campo: string, valor: any) {
-        setDespesa((antigo: any) => ({ ...antigo, [campo]: valor }))
+    function handleChange(campo: string, valor: string | number | boolean) {
+        setDespesa((antigo) => (antigo ? { ...antigo, [campo]: valor } : null))
     }
 
     return (
@@ -59,26 +59,26 @@ export default function Formulario({ id }: FormularioProps) {
                 nome="descrição"
                 texto="Descrição"
                 valor={despesa.descricao}
-                setValor={(valor: any) => handleChange("descricao", valor)}
+                setValor={(valor: string) => handleChange("descricao", valor)}
             />
             <Entrada
                 nome="data"
                 texto="Data"
                 valor={despesa.data}
                 tipo="date"
-                setValor={(valor: any) => handleChange("data", valor)}
+                setValor={(valor: string) => handleChange("data", valor)}
             />
             <Entrada
                 nome="valor"
                 texto="Valor"
                 valor={despesa.valor}
                 tipo="number"
-                setValor={(valor: any) => handleChange("valor", parseFloat(valor))} //convertendo string para float
+                setValor={(valor: string) => handleChange("valor", parseFloat(valor))} //convertendo string para float
             />
             <Toggle
                 texto="Pago?"
                 valor={despesa.pago}
-                setValor={(valor: any) => handleChange("pago", valor)}
+                setValor={(valor: boolean) => handleChange("pago", valor)}
             />
             <div className="flex justify-end">
                 <Botao className="mr-2 cursor-pointer w-26"
